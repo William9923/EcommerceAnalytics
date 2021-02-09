@@ -54,14 +54,30 @@
 * Submit selected dataset
 ---
 
-### 2021 - 05 - 01 
+### 2021 - 02 - 05 
 **Done :** 
 * Finding business problem from candidate dataset 
 
 **Problem :** 
-* Not found good usecase about current ca
+* Not found good usecase about current dataset
 
 **Next :**
 * Try to consult with mentor about current dataset candidate
 * Submit selected dataset
 ---
+
+### 2021 - 02 - 09
+**Done :** 
+* Finding reference for converting .csv to PostgresSQL
+* Download dataset
+* Prepare GIT
+
+**Problem :** 
+
+
+**Next :**
+* Create ER diagram
+* Load dataset into database
+* Create .bak files
+---
+
