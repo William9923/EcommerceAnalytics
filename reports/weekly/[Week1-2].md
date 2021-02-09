@@ -6,7 +6,7 @@
 
 ## Summary
 ## Work Breakdown
-### 2021 - 01 - 29 (3 hour)
+### 2021 - 01 - 29 
 **Done :** 
 * Learning data science project best practice
 * Implementing better project structure
@@ -19,7 +19,7 @@
 * Finding dataset for selected usecase
 ---
 
-### 2021 - 02 - 01 (3 hour)
+### 2021 - 02 - 01 
 **Done :** 
 * Overview for datascience usecase. [Reference](https://github.com/DerekKane/Use-Cases-Data-Science)
 * Selecting a few usecase that might be useful. [Reference](https://greenice.net/using-machine-learning-in-the-e-commerce-industry-benefits-use-cases-greenice/) 
@@ -36,7 +36,7 @@
 * Finding project reference (example) for study 
 ---
 
-### 2021 - 02 - 01 (3 hour)
+### 2021 - 02 - 01 
 **Done :** 
 * Finding candidate dataset based on selected task
 * Result (link):
@@ -48,6 +48,18 @@
 **Problem :** 
 * Hard to find way to merge dataset that provide both capabilities for supervised task & unsupervised task
 * Confuse on how to use existing 
+
+**Next :**
+* Try to consult with mentor about current dataset candidate
+* Submit selected dataset
+---
+
+### 2021 - 05 - 01 
+**Done :** 
+* Finding business problem from candidate dataset 
+
+**Problem :** 
+* Not found good usecase about current ca
 
 **Next :**
 * Try to consult with mentor about current dataset candidate
