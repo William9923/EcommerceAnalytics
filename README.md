@@ -1,6 +1,7 @@
 # ECommerce Project
 
 #### Status: Active
+#### Progress Report -> see [wiki](https://github.com/William9923/future-data-ecommerce/wiki) page
 
 ## Overview
 Proyek ini digunakan untuk menjawab pertanyaan - pertanyaan bisnis serta menghasilkan suatu solusi inovatif yang menarik melalui penerapan statistik, visualisasi data yang baik dan mudah dilihat serta menemukan permasalahan - permasalahan yang dapat diselesaikan dengan bantuan supervised dan unsupervised learning guna memperoleh insight baru dalam dunia E-commerce.
