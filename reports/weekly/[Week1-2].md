@@ -81,3 +81,17 @@
 * Create .bak files
 ---
 
+### 2021 - 02 - 11
+**Done :**
+* Exploring dataset
+* Finding relationship on each dataset
+
+**Problem:**
+* Difficult to find composite key in dataset.
+* Some unique identifier is not completely unique in the dataset
+
+**Next:**
+1. Check each potential relationship
+2. Create ER Diagram
+3. Porting into local Postgres SQL
+
