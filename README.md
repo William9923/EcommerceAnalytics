@@ -37,4 +37,3 @@ root
 ### Author
 * [William](https://william9923.github.io/)
 
-[Daily Plan Kanban Board](https://trello.com/invite/b/DPP8iKz8/78a30d847b89e9f7e0a99fed4e419fb3/william-work-scheduler)
