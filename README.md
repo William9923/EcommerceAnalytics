@@ -1,7 +1,26 @@
 # ECommerce Project
 
 #### Status: Active
-#### Progress Report -> see [wiki](https://github.com/William9923/future-data-ecommerce/wiki) page
+#### Progress Report 
+Progress report akan dilakukan setiap 2 minggu, dengan rincian sebagai berikut : 
+* Week 1 - 2
+- [x] Melakukan inisialisasi struktur proyek terhadap github
+- [x] Eksplorasi terkait tools pada dbeaver 
+- [x] Eksplorasi data untuk menemukan relasi pada dataset
+- [x] Mencari cara untuk memudahkan sistem Import/Export dari .csv ke database
+- [x] Membuat skema ER Diagram untul OLTP database
+- [ ] Menyiapkan pertanyaan - pertanyaan business untuk pembuatan data warehouse
+- [ ] Eksplorasi tools - tools ETL (mostly Python tools, seperti Pandas dan pygraetl)
+
+* Week 3 - 4
+- [ ] Melakukan revisi terhadap desain OLTP database sesuai dengan hasil mentoring
+- [ ] Eksplorasi data warehouse
+- [ ] Mendesain struktur data warehouse
+- [ ] Menyiapkan staging area untuk data warehouse
+- [ ] Preparing schema untuk data warehouse & datamart (+business question)
+- [ ] Eksplorasi & Pembuatan Pipeline ETL
+Lebih lengkapnya dapat mengarah ke link [wiki](https://github.com/William9923/future-data-ecommerce/wiki) sebagai berikut
+
 #### Documentation & Deliveribles -> see [drive](https://drive.google.com/drive/folders/1EhdzxzMnBAIJyZU9aXpXrXs58gSnTMKU?usp=sharing) 
 
 ## Overview
