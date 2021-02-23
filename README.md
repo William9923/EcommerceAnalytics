@@ -2,6 +2,7 @@
 
 #### Status: Active
 #### Progress Report -> see [wiki](https://github.com/William9923/future-data-ecommerce/wiki) page
+#### Documentation & Deliveribles -> see [drive](https://drive.google.com/drive/folders/1EhdzxzMnBAIJyZU9aXpXrXs58gSnTMKU?usp=sharing) 
 
 ## Overview
 Proyek ini digunakan untuk menjawab pertanyaan - pertanyaan bisnis serta menghasilkan suatu solusi inovatif yang menarik melalui penerapan statistik, visualisasi data yang baik dan mudah dilihat serta menemukan permasalahan - permasalahan yang dapat diselesaikan dengan bantuan supervised dan unsupervised learning guna memperoleh insight baru dalam dunia E-commerce.
@@ -22,15 +23,8 @@ Proyek ini digunakan untuk menjawab pertanyaan - pertanyaan bisnis serta menghas
 ### Project Structure
 ```
 root
-├───data
-│   ├───processed    <- The final, canonical data sets for modeling.
-│   └───raw          <- The original, immutable data dump.
 ├───models           <- Trained and serialized models, model predictions, or model summaries
 ├───notebooks        <- Jupyter notebooks.
-├───reports
-│   ├───docs
-│   ├───visualization
-│   └───weekly
 ├───scripts          <- Source code for use in this project.
 ```
 ## Usage
