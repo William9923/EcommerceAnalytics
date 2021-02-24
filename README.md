@@ -19,6 +19,7 @@ Progress report akan dilakukan setiap 2 minggu, dengan rincian sebagai berikut :
 - [ ] Menyiapkan staging area untuk data warehouse
 - [ ] Preparing schema untuk data warehouse & datamart (+business question)
 - [ ] Eksplorasi & Pembuatan Pipeline ETL
+
 Lebih lengkapnya dapat mengarah ke link [wiki](https://github.com/William9923/future-data-ecommerce/wiki) sebagai berikut
 
 #### Documentation & Deliveribles -> see [drive](https://drive.google.com/drive/folders/1EhdzxzMnBAIJyZU9aXpXrXs58gSnTMKU?usp=sharing) 
