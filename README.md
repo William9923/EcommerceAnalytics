@@ -27,7 +27,8 @@ Lebih lengkapnya dapat mengarah ke link [wiki](https://github.com/William9923/fu
 ## Overview
 Proyek ini digunakan untuk menjawab pertanyaan - pertanyaan bisnis serta menghasilkan suatu solusi inovatif yang menarik melalui penerapan statistik, visualisasi data yang baik dan mudah dilihat serta menemukan permasalahan - permasalahan yang dapat diselesaikan dengan bantuan supervised dan unsupervised learning guna memperoleh insight baru dalam dunia E-commerce.
 
-## Dataset
+## Data Warehouse Schema
+[Link](https://dbdiagram.io/d/604272d1fcdcb6230b22cecc)
 
 ### Methods Used (in the future)
 * Inferential Statistics
