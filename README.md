@@ -21,6 +21,8 @@ Progress report akan dilakukan setiap 2 minggu, dengan rincian sebagai berikut :
 - [x] Eksplorasi & Pembuatan Pipeline ETL
 
 * Week 5 - 6
+- [ ] Memperbaiki struktur pipeline (menambah 1 layer untuk memasukkan data dari csv langsung ke database)
+- [ ] Mengubah pipeline loading data warehouse (dari staging db --> datawarehouse)
 - [ ] Mengecek struktur data warehouse agar sesuai dengan kebutuhan bisnis (business question)
 - [ ] Menyusun business question yang tepat 
 - [ ] Menerapkan EDA yang berkaitan dengan business question
