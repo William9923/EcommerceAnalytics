@@ -13,13 +13,17 @@ Progress report akan dilakukan setiap 2 minggu, dengan rincian sebagai berikut :
 - [ ] Eksplorasi tools - tools ETL (mostly Python tools, seperti Pandas dan pygraetl)
 
 * Week 3 - 4
-- [ ] Melakukan revisi terhadap desain OLTP database sesuai dengan hasil mentoring
-- [ ] Eksplorasi data warehouse
-- [ ] Mendesain struktur data warehouse
-- [ ] Menyiapkan staging area untuk data warehouse
-- [ ] Preparing schema untuk data warehouse & datamart (+business question)
-- [ ] Eksplorasi & Pembuatan Pipeline ETL
+- [x] Melakukan revisi terhadap desain OLTP database sesuai dengan hasil mentoring
+- [x] Eksplorasi data warehouse
+- [x] Mendesain struktur data warehouse
+- [x] Menyiapkan staging area untuk data warehouse
+- [x] Preparing schema untuk data warehouse & datamart (+business question)
+- [x] Eksplorasi & Pembuatan Pipeline ETL
 
+* Week 5 - 6
+- [ ] Mengecek struktur data warehouse agar sesuai dengan kebutuhan bisnis (business question)
+- [ ] Menyusun business question yang tepat 
+- [ ] Menerapkan EDA yang berkaitan dengan business question
 Lebih lengkapnya dapat mengarah ke link [wiki](https://github.com/William9923/future-data-ecommerce/wiki) sebagai berikut
 
 #### Documentation & Deliveribles -> see [drive](https://drive.google.com/drive/folders/1EhdzxzMnBAIJyZU9aXpXrXs58gSnTMKU?usp=sharing) 
