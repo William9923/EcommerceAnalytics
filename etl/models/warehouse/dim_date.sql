@@ -1,6 +1,5 @@
 {{ config(
     materialized='incremental',
-    schema='staging',
     transient=true,
     incremental_strategy='insert_overwrite',
     unique_key='date_id'
