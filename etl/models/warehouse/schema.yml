@@ -1,0 +1,35 @@
+
+version: 2
+
+models:
+    - name: geo_dim
+      description: "A dimention table for geolocation"
+      columns:
+          - name: zip_code
+            tests:
+                - unique
+                - not_null
+          - name: city
+          - name: state
+
+    - name: date_dim
+      description: "A dimension table for datetime"
+      columns:
+          - name: date_id
+            tests:
+                - unique
+                - not_null
+          - name: date
+          - name: day_name
+          - name: day_of_week
+          - name: day_of_month
+          - name: day_of_quarter
+          - name: day_of_year
+          - name: week_of_month
+          - name: week_of_year
+          - name: month_actual
+          - name: month_name
+          - name: month_name_abbreviated
+          - name: quarter
+          - name: year
+          - name: isWeekend
