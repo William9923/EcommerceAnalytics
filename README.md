@@ -26,6 +26,7 @@ Progress report akan dilakukan setiap 2 minggu, dengan rincian sebagai berikut :
 - [x] Mengecek struktur data warehouse agar sesuai dengan kebutuhan bisnis (business question)
 - [x] Menyusun business question yang tepat 
 - [ ] Menerapkan EDA yang berkaitan dengan business question
+
 Lebih lengkapnya dapat mengarah ke link [wiki](https://github.com/William9923/future-data-ecommerce/wiki) sebagai berikut
 
 #### Documentation & Deliveribles -> see [drive](https://drive.google.com/drive/folders/1EhdzxzMnBAIJyZU9aXpXrXs58gSnTMKU?usp=sharing) 
