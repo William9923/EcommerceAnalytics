@@ -2,7 +2,7 @@
     materialized='incremental',
     transient=true,
     incremental_strategy='insert_overwrite',
-    unique_key="order_id"
+    unique_key="payment_id"
     ) 
 }}
 

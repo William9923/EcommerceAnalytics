@@ -2,7 +2,7 @@
 version: 2
 
 models:
-    - name: geo_dim
+    - name: dim_geo
       description: "A dimention table for geolocation"
       columns:
           - name: zip_code
@@ -12,7 +12,7 @@ models:
           - name: city
           - name: state
 
-    - name: date_dim
+    - name: dim_date
       description: "A dimension table for datetime"
       columns:
           - name: date_id

@@ -13,12 +13,13 @@
     }}
 
     SELECT 
-        user_name, 
+        DISTINCT ON (user_name) user_name, 
         customer_zip_code,  
         customer_city,
         customer_state,
         COUNT(user_name) AS num_order_on_loc
     FROM {{ source('staging', 'user')}}
     GROUP BY (user_name, customer_zip_code,customer_city,customer_state)
+    ORDER BY user_name
 
 {% endsnapshot %}
