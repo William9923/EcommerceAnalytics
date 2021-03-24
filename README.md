@@ -33,6 +33,7 @@ Progress report akan dilakukan setiap 2 minggu, dengan rincian sebagai berikut :
 - [ ] Memperbaiki pipeline yang salah kemarin (ada beberapa data yang lost dari pengecekan)
 - [ ] Pembuatan datamart sesuai dengan pertanyaan bisnis yang telah diusulkan
 - [ ] Menerapkan EDA yang berkaitan dengan business question
+- [ ] Eksplorasi platform data analysis yang tersedia
 
 Lebih lengkapnya dapat mengarah ke link [wiki](https://github.com/William9923/future-data-ecommerce/wiki) sebagai berikut
 
