@@ -43,5 +43,5 @@ SELECT
     ) AS version,
     stg_snapshot_user.dbt_valid_to is null as is_current_version
 
-FROM stg_snapshot_user INNER JOIN stg_snapshot_spending ON 
+FROM stg_snapshot_user LEFT JOIN stg_snapshot_spending ON 
     stg_snapshot_user.user_name = stg_snapshot_spending.user_name

@@ -35,5 +35,5 @@ SELECT
         ORDER BY {{ ref('seller_snapshot')}}.dbt_valid_from
     ) AS version,
     {{ ref('seller_snapshot')}}.dbt_valid_to is null as is_current_version
-FROM {{ ref('seller_snapshot')}} INNER JOIN stg_snapshot_revenue 
+FROM {{ ref('seller_snapshot')}} LEFT JOIN stg_snapshot_revenue 
     ON {{ ref('seller_snapshot')}}.seller_id = stg_snapshot_revenue.seller_id 
