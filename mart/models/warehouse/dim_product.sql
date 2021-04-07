@@ -38,5 +38,5 @@ SELECT
     ) AS version,
     {{ ref('product_snapshot')}}.dbt_valid_to is null as is_current_version
 
-FROM {{ ref('product_snapshot')}} INNER JOIN stg_snapshot_rating ON 
+FROM {{ ref('product_snapshot')}} LEFT JOIN stg_snapshot_rating ON 
     {{ ref('product_snapshot')}}.product_id = stg_snapshot_rating.product_id

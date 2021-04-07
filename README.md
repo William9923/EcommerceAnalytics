@@ -28,12 +28,12 @@ Progress report akan dilakukan setiap 2 minggu, dengan rincian sebagai berikut :
 - [ ] Menerapkan EDA yang berkaitan dengan business question
 
 * Week 7 - 8
-- [ ] Melakukan quality checking terhadap Pipeline ETL
-- [ ] Menerapkan integrity dan referential constraint pada warehouse
-- [ ] Memperbaiki pipeline yang salah kemarin (ada beberapa data yang lost dari pengecekan)
-- [ ] Pembuatan datamart sesuai dengan pertanyaan bisnis yang telah diusulkan
+- [x] Melakukan quality checking terhadap Pipeline ETL
+- [x] Menerapkan integrity dan referential constraint pada warehouse
+- [x] Memperbaiki pipeline yang salah kemarin (ada beberapa data yang lost dari pengecekan)
+- [x] Pembuatan datamart sesuai dengan pertanyaan bisnis yang telah diusulkan
 - [ ] Menerapkan EDA yang berkaitan dengan business question
-- [ ] Eksplorasi platform data analysis yang tersedia
+- [x] Eksplorasi platform data analysis yang tersedia
 
 Lebih lengkapnya dapat mengarah ke link [wiki](https://github.com/William9923/future-data-ecommerce/wiki) sebagai berikut
 
