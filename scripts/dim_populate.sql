@@ -1,5 +1,5 @@
 -- Upsert Date dimension
-INSERT INTO staging.dim_date
+INSERT INTO warehouse.dim_date
 SELECT TO_CHAR(datum, 'yyyymmdd')::INT AS date_id,
        datum AS date,
        TO_CHAR(datum, 'Day') AS day_name,
@@ -28,7 +28,7 @@ ORDER BY 1;
 -- 1. insert new data
 -- 2. insert new change in live database as change in data warehouse, make it into current version
 -- 3. update the second latest version (still in current version flag) into non-current version
-insert into staging.dim_product (
+insert into warehouse.dim_product (
 	product_id, 
 	product_category,
     product_name_length, 
@@ -44,9 +44,9 @@ insert into staging.dim_product (
 	*,
 	true as is_current_version 
 	from live.product
-	where product_id not in (select product_id from staging.dim_product));
+	where product_id not in (select product_id from warehouse.dim_product));
 
-insert into staging.dim_product (
+insert into warehouse.dim_product (
 	product_id, 
 	product_category,
     product_name_length, 
@@ -69,7 +69,7 @@ insert into staging.dim_product (
     live.product.product_height_cm, 
     live.product.product_width_cm, 
     true is_current_version 
-  from live.product join (select * from staging.dim_product where is_current_version = TRUE) stg on live.product.product_id = stg.product_id
+  from live.product join (select * from warehouse.dim_product where is_current_version = TRUE) stg on live.product.product_id = stg.product_id
   where (
             stg.product_name_length <> live.product.product_name_length OR 
             stg.product_category <> live.product.product_category OR
@@ -82,21 +82,21 @@ insert into staging.dim_product (
       )
      );
 
-update staging.dim_product 
+update warehouse.dim_product 
 set is_current_version = false 
-where staging.dim_product.product_id_surr in (
-	select staging.dim_product.product_id_surr
-	from staging.dim_product inner join live.product 
-	on staging.dim_product.product_id = live.product.product_id 
+where warehouse.dim_product.product_id_surr in (
+	select warehouse.dim_product.product_id_surr
+	from warehouse.dim_product inner join live.product 
+	on warehouse.dim_product.product_id = live.product.product_id 
 	where (
-			staging.dim_product.product_category  <> live.product.product_category OR
-            staging.dim_product.product_name_length <> live.product.product_name_length OR 
-            staging.dim_product.product_description_length <> live.product.product_description_length OR 
-            staging.dim_product.product_photos_qty <> live.product.product_photos_qty OR 
-            staging.dim_product.product_weight_g <> live.product.product_weight_g OR 
-            staging.dim_product.product_length_cm <> live.product.product_length_cm OR 
-            staging.dim_product.product_height_cm <> live.product.product_height_cm OR 
-            staging.dim_product.product_width_cm <> live.product.product_width_cm 
+			warehouse.dim_product.product_category  <> live.product.product_category OR
+            warehouse.dim_product.product_name_length <> live.product.product_name_length OR 
+            warehouse.dim_product.product_description_length <> live.product.product_description_length OR 
+            warehouse.dim_product.product_photos_qty <> live.product.product_photos_qty OR 
+            warehouse.dim_product.product_weight_g <> live.product.product_weight_g OR 
+            warehouse.dim_product.product_length_cm <> live.product.product_length_cm OR 
+            warehouse.dim_product.product_height_cm <> live.product.product_height_cm OR 
+            warehouse.dim_product.product_width_cm <> live.product.product_width_cm 
       )
 );
 
@@ -123,7 +123,7 @@ with stg_snapshot_user as (
 	where o.order_status not in ('canceled', 'unavailable') or o.order_status isnull 
 	group by o.user_name 
 )
-insert into staging.dim_user (
+insert into warehouse.dim_user (
 	user_name,
 	total_order,
 	total_spending,
@@ -140,7 +140,7 @@ insert into staging.dim_user (
 		true as is_current_version
 	from stg_snapshot_user left outer join stg_snapshot_spending on 
 		stg_snapshot_user.user_name = stg_snapshot_spending.user_name
-	where stg_snapshot_user.user_name not in (select distinct user_name from staging.dim_user)
+	where stg_snapshot_user.user_name not in (select distinct user_name from warehouse.dim_user)
 );
 
 with stg_snapshot_user as (
@@ -171,7 +171,7 @@ with stg_snapshot_user as (
 		stg_snapshot_user.user_name = stg_snapshot_spending.user_name
 )
 
-insert into staging.dim_user (
+insert into warehouse.dim_user (
 	user_name,
 	total_order,
 	total_spending,
@@ -183,7 +183,7 @@ insert into staging.dim_user (
 	aggr.total_spending,
     true is_current_version
   from aggr
-	 join (select * from staging.dim_user where is_current_version = TRUE) stg on aggr.user_name = stg.user_name
+	 join (select * from warehouse.dim_user where is_current_version = TRUE) stg on aggr.user_name = stg.user_name
   where (
             stg.total_order <> aggr.total_order OR 
             stg.total_spending <> aggr.total_spending             
@@ -219,23 +219,23 @@ insert into staging.dim_user (
 )
 , v as (
 	select distinct stg.user_id 
-	from staging.dim_user stg inner join u 
+	from warehouse.dim_user stg inner join u 
 	on stg.user_name = u.user_name 
 	 where (
             stg.total_order <> u.total_order OR 
             stg.total_spending <> u.total_spending             
       ) 
 )
-update staging.dim_user 
+update warehouse.dim_user 
 set is_current_version = false 
-where staging.dim_user.user_id in (select * from v);
+where warehouse.dim_user.user_id in (select * from v);
 
 -- Seller dimension
 -- 3 steps :
 -- 1. insert new data
 -- 2. insert new change in live database as change in data warehouse, make it into current version
 -- 3. update the second latest version (still in current version flag) into non-current version
-insert into staging.dim_seller (
+insert into warehouse.dim_seller (
 	seller_id ,
 	seller_zip_code ,
 	seller_city ,
@@ -246,11 +246,11 @@ insert into staging.dim_seller (
 	*,
 	true as is_current_version
 	from live.seller
-	where seller_id not in (select seller_id from staging.dim_seller)
+	where seller_id not in (select seller_id from warehouse.dim_seller)
 );
 
 -- insert different data (SCD II) in dw
-insert into staging.dim_seller (
+insert into warehouse.dim_seller (
 	seller_id ,
 	seller_zip_code ,
 	seller_city ,
@@ -263,7 +263,7 @@ insert into staging.dim_seller (
 	 s.seller_city ,
 	 s.seller_state ,
     true is_current_version 
-  from live.seller s join (select * from staging.dim_seller where is_current_version = TRUE) stg on s.seller_id = stg.seller_id
+  from live.seller s join (select * from warehouse.dim_seller where is_current_version = TRUE) stg on s.seller_id = stg.seller_id
   where (
  		stg.seller_state <> s.seller_state OR
  		stg.seller_zip_code <> s.seller_zip_code OR
@@ -272,11 +272,11 @@ insert into staging.dim_seller (
 );
 
 -- update the changed dimension
-update staging.dim_seller 
+update warehouse.dim_seller 
 set is_current_version = false 
-where staging.dim_seller.seller_id_surr in (
+where warehouse.dim_seller.seller_id_surr in (
 	select stg.seller_id_surr 
-	from staging.dim_seller stg inner join live.seller s
+	from warehouse.dim_seller stg inner join live.seller s
 	on stg.seller_id = s.seller_id 
 	where (
  		stg.seller_state <> s.seller_state OR
@@ -291,7 +291,7 @@ where staging.dim_seller.seller_id_surr in (
 -- 1. insert new data
 -- 2. insert new change in live database as change in data warehouse, make it into current version
 -- 3. update the second latest version (still in current version flag) into non-current version
-insert into staging.dim_feedback (
+insert into warehouse.dim_feedback (
 	order_id ,
 	feedback_avg_score ,
 	feedback_form_sent_date ,
@@ -306,7 +306,7 @@ insert into staging.dim_feedback (
 		TO_CHAR(MAX(date(f.feedback_answer_date)), 'yyyymmdd')::INT AS feedback_answer_date,
 		true as is_current_version 
 	from live.feedback f 
-	where f.order_id not in (select feedback_id from staging.dim_feedback)
+	where f.order_id not in (select feedback_id from warehouse.dim_feedback)
 	group by f.order_id 
 );
 
@@ -320,7 +320,7 @@ with f as (
 	from live.feedback f
 	group by f.order_id 
 )
-insert into staging.dim_feedback (
+insert into warehouse.dim_feedback (
 	order_id ,
 	feedback_avg_score ,
 	feedback_form_sent_date ,
@@ -334,7 +334,7 @@ insert into staging.dim_feedback (
 		f.feedback_form_sent_date,
 		f.feedback_answer_date,
 		true is_current_version 
-	from f join (select * from staging.dim_feedback where is_current_version = TRUE) stg
+	from f join (select * from warehouse.dim_feedback where is_current_version = TRUE) stg
 	on f.order_id = stg.order_id
 	where (
 		stg.feedback_avg_score <> f.feedback_avg_score 
@@ -351,11 +351,11 @@ with f as (
 	from live.feedback f
 	group by f.order_id 
 )
-update staging.dim_feedback 
+update warehouse.dim_feedback 
 set is_current_version = false 
-where staging.dim_feedback.feedback_id_surr in (
+where warehouse.dim_feedback.feedback_id_surr in (
 	select stg.feedback_id_surr 
-	from staging.dim_feedback stg inner join f 
+	from warehouse.dim_feedback stg inner join f 
 	on stg.order_id = f.order_id 
 	where (
 		stg.feedback_avg_score <> f.feedback_avg_score 
