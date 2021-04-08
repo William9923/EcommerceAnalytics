@@ -1,12 +1,12 @@
-DROP TABLE IF EXISTS warehouse.fct_order_items;
-DROP TABLE IF EXISTS warehouse.fct_payment;
-DROP TABLE IF EXISTS warehouse.dim_feedback;
-DROP TABLE IF EXISTS warehouse.dim_user;
-DROP TABLE IF EXISTS warehouse.dim_product;
-DROP TABLE IF EXISTS warehouse.dim_seller;
-DROP TABLE IF EXISTS warehouse.dim_date;
+DROP TABLE IF EXISTS staging.fct_order_items;
+DROP TABLE IF EXISTS staging.dim_payment;
+DROP TABLE IF EXISTS staging.dim_feedback;
+DROP TABLE IF EXISTS staging.dim_user;
+DROP TABLE IF EXISTS staging.dim_product;
+DROP TABLE IF EXISTS staging.dim_seller;
+DROP TABLE IF EXISTS staging.dim_date;
 
-CREATE TABLE warehouse.dim_user (
+CREATE TABLE staging.dim_user (
   "user_id" serial PRIMARY KEY,
   "user_name" varchar,
   "total_order" decimal,
@@ -14,7 +14,7 @@ CREATE TABLE warehouse.dim_user (
   "is_current_version" boolean
 );
 
-CREATE TABLE warehouse.dim_product (
+CREATE TABLE staging.dim_product (
   "product_id_surr" serial PRIMARY KEY,
   "product_id" varchar,
   "product_category" varchar,
@@ -28,7 +28,7 @@ CREATE TABLE warehouse.dim_product (
   "is_current_version" boolean
 );
 
-CREATE TABLE warehouse.dim_seller (
+CREATE TABLE staging.dim_seller (
   "seller_id_surr" serial PRIMARY KEY, 
   "seller_id" varchar,
   "seller_zip_code" int,
@@ -37,7 +37,7 @@ CREATE TABLE warehouse.dim_seller (
   "is_current_version" boolean
 );
 
-CREATE TABLE warehouse.dim_feedback (
+CREATE TABLE staging.dim_feedback (
   "feedback_id_surr" serial PRIMARY KEY,
   "order_id" varchar, 
   "feedback_avg_score" decimal,
@@ -46,7 +46,7 @@ CREATE TABLE warehouse.dim_feedback (
   "is_current_version" boolean
 );
 
-CREATE TABLE warehouse.dim_date (
+CREATE TABLE staging.dim_date (
   "date_id" varchar PRIMARY KEY,
   "date" date,
   "day_name" varchar,
@@ -64,12 +64,32 @@ CREATE TABLE warehouse.dim_date (
   "isWeekend" boolean
 );
 
-CREATE TABLE warehouse.fct_order_items (
+CREATE TABLE staging.dim_payment (
+  "payment_id_surr" serial PRIMARY KEY,
+  "order_id" varchar,
+  "num_payment" int, 
+  "total_payment_value" decimal,
+  "total_payment_installment" int,
+  "num_credit_card" int,
+  "total_payment_credit_card" decimal,
+  "num_blipay" int,
+  "total_payment_blipay" decimal,
+  "num_voucher" int,
+  "total_payment_voucher" decimal,
+  "num_debit" int,
+  "total_payment_debit" decimal,
+  "num_unknown" int,
+  "total_payment_unknown" decimal,
+  "is_current_version" boolean
+);
+
+CREATE TABLE staging.fct_order_items (
   "id" serial PRIMARY KEY,
   "user_id" integer,
   "product_id_surr" integer,
   "seller_id_surr" integer,
   "feedback_id_surr" integer,
+  "payment_id_surr" integer,
   "order_date" varchar,
   "order_approved_date" varchar,
   "pickup_date" varchar,
@@ -83,37 +103,29 @@ CREATE TABLE warehouse.fct_order_items (
   "shipping_cost" decimal
 );
 
-CREATE TABLE warehouse.fct_payment (
-  "id" serial PRIMARY KEY,
-  "feedback_id_surr" integer,
-  "user_id" integer,
-  "payment_sequential" integer,
-  "payment_type" varchar,
-  "payment_installments" int,
-  "payment_value" decimal
-);
+ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("user_id") REFERENCES staging.dim_user ("user_id");
 
-ALTER TABLE warehouse.fct_order_items ADD FOREIGN KEY ("user_id") REFERENCES warehouse.dim_user ("user_id");
+ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("product_id_surr") REFERENCES staging.dim_product ("product_id_surr");
 
-ALTER TABLE warehouse.fct_order_items ADD FOREIGN KEY ("product_id_surr") REFERENCES warehouse.dim_product ("product_id_surr");
+ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("seller_id_surr") REFERENCES staging.dim_seller ("seller_id_surr");
 
-ALTER TABLE warehouse.fct_order_items ADD FOREIGN KEY ("seller_id_surr") REFERENCES warehouse.dim_seller ("seller_id_surr");
+ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("feedback_id_surr") REFERENCES staging.dim_feedback ("feedback_id_surr");
 
-ALTER TABLE warehouse.fct_order_items ADD FOREIGN KEY ("feedback_id_surr") REFERENCES warehouse.dim_feedback ("feedback_id_surr");
+ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("payment_id_surr") REFERENCES staging.dim_payment ("payment_id_surr");
 
-ALTER TABLE warehouse.fct_order_items ADD FOREIGN KEY ("order_date") REFERENCES warehouse.dim_date ("date_id");
+ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("order_date") REFERENCES staging.dim_date ("date_id");
 
-ALTER TABLE warehouse.fct_order_items ADD FOREIGN KEY ("order_approved_date") REFERENCES warehouse.dim_date ("date_id");
+ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("order_approved_date") REFERENCES staging.dim_date ("date_id");
 
-ALTER TABLE warehouse.fct_order_items ADD FOREIGN KEY ("pickup_date") REFERENCES warehouse.dim_date ("date_id");
+ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("pickup_date") REFERENCES staging.dim_date ("date_id");
 
-ALTER TABLE warehouse.fct_order_items ADD FOREIGN KEY ("delivered_date") REFERENCES warehouse.dim_date ("date_id");
+ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("delivered_date") REFERENCES staging.dim_date ("date_id");
 
-ALTER TABLE warehouse.fct_order_items ADD FOREIGN KEY ("estimated_time_delivery") REFERENCES warehouse.dim_date ("date_id");
+ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("estimated_time_delivery") REFERENCES staging.dim_date ("date_id");
 
-ALTER TABLE warehouse.fct_order_items ADD FOREIGN KEY ("pickup_limit_date") REFERENCES warehouse.dim_date ("date_id");
+ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("pickup_limit_date") REFERENCES staging.dim_date ("date_id");
 
-ALTER TABLE warehouse.fct_payment ADD FOREIGN KEY ("feedback_id_surr") REFERENCES warehouse.dim_feedback ("feedback_id_surr");
+ALTER TABLE staging.fct_payment ADD FOREIGN KEY ("feedback_id_surr") REFERENCES staging.dim_feedback ("feedback_id_surr");
 
-ALTER TABLE warehouse.fct_payment ADD FOREIGN KEY ("user_id") REFERENCES warehouse.dim_user ("user_id");
+ALTER TABLE staging.fct_payment ADD FOREIGN KEY ("user_id") REFERENCES staging.dim_user ("user_id");
 
