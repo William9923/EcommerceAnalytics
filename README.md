@@ -36,8 +36,8 @@ Progress report akan dilakukan setiap 2 minggu, dengan rincian sebagai berikut :
 - [x] Eksplorasi platform data analysis yang tersedia
 
 * Week 9 - 10
-- [ ] HOTFIX : Redesign Payment Dimension Table (saran kak Hans)
-- [ ] Memulai EDA untuk mencari business question yang menarik pada data yang ada
+- [x] HOTFIX : Redesign Payment Dimension Table (saran kak Hans)
+- [x] Memulai EDA untuk mencari business question yang menarik pada data yang ada
 - [ ] Menyiapkan data mart untuk business question yang baru
 - [ ] Mulai EDA dengan topik spesifik business question (2 question)
 - [ ] Mencari usecase business question pada pembuatan model" machine learning
