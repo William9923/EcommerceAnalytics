@@ -1,0 +1,7 @@
+{
+    "HOSTNAME": "localhost",
+    "USER" : "postgres",
+    "PASS" : 9923,
+    "PORT" : 5432,
+    "DBNAME" : "ecommerce"
+}

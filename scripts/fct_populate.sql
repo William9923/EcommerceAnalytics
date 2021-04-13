@@ -1,6 +1,6 @@
 -- Order - order_items fact table
 -- each product in transaction fact (Fact tables for order_items)
-insert into staging.fct_order_items 
+insert into warehouse.fct_order_items 
 (
 	user_id ,
 	product_id_surr ,
@@ -39,9 +39,9 @@ insert into staging.fct_order_items
 		oi.shipping_cost 
 	from live.order_item oi 
 		inner join live.order o on oi.order_id = o.order_id 
-		inner join (select dim.user_id, dim.user_name from staging.dim_user dim where dim.is_current_version = true) u on o.user_name = u.user_name 
-		inner join (select df.feedback_id_surr , df.order_id from staging.dim_feedback df where df.is_current_version = true) f on o.order_id = f.order_id
-		left outer join (select dpay.payment_id_surr, dpay.order_id from staging.dim_payment dpay where dpay.is_current_version = true) pay on o.order_id = pay.order_id
-		inner join (select dp.product_id_surr , dp.product_id from staging.dim_product dp where dp.is_current_version = true) p on oi.product_id = p.product_id
-		inner join (select ds.seller_id_surr , ds.seller_id from staging.dim_seller ds where ds.is_current_version = true) s on oi.seller_id = s.seller_id
+		inner join (select dim.user_id, dim.user_name from warehouse.dim_user dim where dim.is_current_version = true) u on o.user_name = u.user_name 
+		inner join (select df.feedback_id_surr , df.order_id from warehouse.dim_feedback df where df.is_current_version = true) f on o.order_id = f.order_id
+		left outer join (select dpay.payment_id_surr, dpay.order_id from warehouse.dim_payment dpay where dpay.is_current_version = true) pay on o.order_id = pay.order_id
+		inner join (select dp.product_id_surr , dp.product_id from warehouse.dim_product dp where dp.is_current_version = true) p on oi.product_id = p.product_id
+		inner join (select ds.seller_id_surr , ds.seller_id from warehouse.dim_seller ds where ds.is_current_version = true) s on oi.seller_id = s.seller_id
 );
