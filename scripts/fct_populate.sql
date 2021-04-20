@@ -21,10 +21,10 @@ with stg_snapshot_user as (
 insert into staging.fct_order_items 
 (
 	order_id,
-	item_number,
-	user_id ,
-	product_id_surr ,
-	seller_id_surr ,
+	order_item_id,
+	user_key ,
+	product_key ,
+	seller_key ,
 	order_date ,
 	order_time ,
 	order_approved_date ,
@@ -59,22 +59,22 @@ insert into staging.fct_order_items
 (
 	select 
 		oi.order_id ,
-		oi.order_item_id as item_number,
-		u.user_id,
-		p.product_id_surr,
-		s.seller_id_surr,
+		oi.order_item_id,
+		u.user_key,
+		p.product_key,
+		s.seller_key,
 		TO_CHAR(o.order_date , 'yyyymmdd')::INT,
-		TO_CHAR(o.order_date , 'hh24:mi'),
+		TO_CHAR(o.order_date , 'hh24mi')::INT,
 		TO_CHAR(o.order_approved_date , 'yyyymmdd')::INT,
-		TO_CHAR(o.order_approved_date , 'hh24:mi'),
+		TO_CHAR(o.order_approved_date , 'hh24mi')::INT,
 		TO_CHAR(o.pickup_date , 'yyyymmdd')::INT,
-		TO_CHAR(o.pickup_date , 'hh24:mi'),
+		TO_CHAR(o.pickup_date , 'hh24mi')::INT,
 		TO_CHAR(o.delivered_date , 'yyyymmdd')::INT,
-		TO_CHAR(o.delivered_date , 'hh24:mi'),
+		TO_CHAR(o.delivered_date , 'hh24mi')::INT,
 		TO_CHAR(o.estimated_time_delivery , 'yyyymmdd')::INT,
-		TO_CHAR(o.estimated_time_delivery , 'hh24:mi'),
+		TO_CHAR(o.estimated_time_delivery , 'hh24mi')::INT,
 		TO_CHAR(oi.pickup_limit_date , 'yyyymmdd')::INT,
-		TO_CHAR(oi.pickup_limit_date , 'hh24:mi'),
+		TO_CHAR(oi.pickup_limit_date , 'hh24mi')::INT,
 		o.order_status,
 		oi.price ,
 		oi.shipping_cost ,
@@ -98,9 +98,9 @@ insert into staging.fct_order_items
     	end
 	from live.order_item oi
 		inner join live.order o on oi.order_id = o.order_id 
-		inner join (select dim.user_id, dim.user_name from staging.dim_user dim where dim.is_current_version = true) u on o.user_name = u.user_name 
-		inner join (select dp.product_id_surr , dp.product_id from staging.dim_product dp where dp.is_current_version = true) p on oi.product_id = p.product_id
-		inner join (select ds.seller_id_surr , ds.seller_id from staging.dim_seller ds where ds.is_current_version = true) s on oi.seller_id = s.seller_id
+		inner join (select dim.user_key, dim.user_name from staging.dim_user dim where dim.is_current_version = true) u on o.user_name = u.user_name 
+		inner join (select dp.product_key , dp.product_id from staging.dim_product dp where dp.is_current_version = true) p on oi.product_id = p.product_id
+		inner join (select ds.seller_key , ds.seller_id from staging.dim_seller ds where ds.is_current_version = true) s on oi.seller_id = s.seller_id
 		left outer join stg_snapshot_user on o.user_name = stg_snapshot_user.user_name
 		left outer join stg_snapshot_spending on o.user_name = stg_snapshot_spending.user_name
 		left outer join live.payment pay on o.order_id = pay.order_id

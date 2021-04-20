@@ -25,7 +25,7 @@ ORDER BY 1;
 
 -- Upsert Time dimension
 insert into staging.dim_time
-select to_char(minute, 'hh24:mi') AS time_id,
+select to_char(minute, 'hh24mi')::INT AS time_id,
 	-- Hour of the day (0 - 23)
 	extract(hour from minute) as hour, 
 	-- Extract and format quarter hours
@@ -87,14 +87,18 @@ insert into staging.dim_product (
 -- 3. update the second latest version (still in current version flag) into non-current version
 
 with deduplicate as (
-	select 
-		distinct on (user_name) user_name, 
-		customer_zip_code, 
-		customer_state, 
-		customer_city, 
-		count(*) from live."user" u
-	group by 1,2,3,4
-	order by 1,5 desc
+	select user_name , customer_zip_code , customer_city , customer_state 
+	from (
+		SELECT 
+			DISTINCT *,
+			RANK() over(
+					PARTITION BY user_name 
+					ORDER BY customer_zip_code DESC, customer_state DESC , customer_city DESC
+			) as rank
+		FROM 
+			live.user u
+		) dedup 
+	where rank = 1
 )
 insert into staging.dim_user (
   user_name,
@@ -113,8 +117,6 @@ insert into staging.dim_user (
 	from deduplicate
 	where user_name not in (select user_name from staging.dim_user)
 );
-
-
 
 
 -- Seller dimension

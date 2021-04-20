@@ -37,8 +37,8 @@ insert into staging.dim_product (
 
 update staging.dim_product 
 set is_current_version = false 
-where staging.dim_product.product_id_surr in (
-	select staging.dim_product.product_id_surr
+where staging.dim_product.product_key in (
+	select staging.dim_product.product_key
 	from staging.dim_product inner join live.product 
 	on staging.dim_product.product_id = live.product.product_id 
 	where (
@@ -55,14 +55,18 @@ where staging.dim_product.product_id_surr in (
 
 -- User SCD Snapshot
 with deduplicate as (
-	select 
-		distinct on (user_name) user_name, 
-		customer_zip_code, 
-		customer_state, 
-		customer_city, 
-		count(*) from live."user" u
-	group by 1,2,3,4
-	order by 1,5 desc
+	select user_name , customer_zip_code , customer_city , customer_state 
+	from (
+		SELECT 
+			DISTINCT *,
+			RANK() over(
+					PARTITION BY user_name 
+					ORDER BY customer_zip_code DESC, customer_state DESC , customer_city DESC
+			) as rank
+		FROM 
+			live.user u
+		) dedup 
+	where rank = 1
 )
 insert into staging.dim_user (
   user_name,
@@ -86,19 +90,23 @@ insert into staging.dim_user (
 );
 
 with deduplicate as (
-	select 
-		distinct on (user_name) user_name, 
-		customer_zip_code, 
-		customer_state, 
-		customer_city, 
-		count(*) from live."user" u
-	group by 1,2,3,4
-	order by 1,5 desc
+	select user_name , customer_zip_code , customer_city , customer_state 
+	from (
+		SELECT 
+			DISTINCT *,
+			RANK() over(
+					PARTITION BY user_name 
+					ORDER BY customer_zip_code DESC, customer_state DESC , customer_city DESC
+			) as rank
+		FROM 
+			live.user u
+		) dedup 
+	where rank = 1
 )
 update staging.dim_user 
 set is_current_version = false 
-where staging.dim_user.user_id in (
-	select stg.user_id 
+where staging.dim_user.user_key in (
+	select stg.user_key 
 	from staging.dim_user stg inner join deduplicate s
 	on s.user_name = stg.user_name
 	where (
@@ -131,8 +139,8 @@ insert into staging.dim_seller (
 -- update the changed dimension
 update staging.dim_seller 
 set is_current_version = false 
-where staging.dim_seller.seller_id_surr in (
-	select stg.seller_id_surr 
+where staging.dim_seller.seller_key in (
+	select stg.seller_key 
 	from staging.dim_seller stg inner join live.seller s
 	on stg.seller_id = s.seller_id 
 	where (
