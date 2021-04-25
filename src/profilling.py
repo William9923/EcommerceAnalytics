@@ -25,12 +25,6 @@ def sweetviz_profilling(df, filename):
     advert_report.show_html(filename + ".html")
 
 
-def pandas_profilling(df, filename):
-    profile = ProfileReport(
-        df, title=f"{filename} Profiling Report", explorative=True)
-    profile.to_file(filename + ".html")
-
-
 if __name__ == '__main__':
     # Create an engine instance
     alchemyEngine = create_engine(
@@ -39,18 +33,19 @@ if __name__ == '__main__':
     # Connect to PostgreSQL server
     conn = alchemyEngine.connect()
 
-    schema = "warehouse"
+    schema = "staging"
+
     date = pd.read_sql_table("dim_date", conn, schema=schema)
+    time = pd.read_sql_table("dim_time", conn, schema=schema)
     user = pd.read_sql_table("dim_user", conn, schema=schema)
     product = pd.read_sql_table("dim_product", conn, schema=schema)
     seller = pd.read_sql_table("dim_seller", conn, schema=schema)
     feedback = pd.read_sql_table("dim_feedback", conn, schema=schema)
-    payment = pd.read_sql_table("dim_payment", conn, schema=schema)
     fct_order_item = pd.read_sql_table("fct_order_items", conn, schema=schema)
 
-    dataset = [date, user, product, seller, feedback, payment, fct_order_item]
-    filenames = ["DateDimension", "UserDimension", "ProductDimension",
-                 "SellerDimension", "FeedbackDimension", "PaymentDimension", "OrderFact"]
+    dataset = [date, time, user, product, seller, feedback, fct_order_item]
+    filenames = ["DateDimension", "TimeDimension", "ProductDimension",
+                 "SellerDimension", "FeedbackDimension", "OrderFact"]
 
     folder = "../reports/"
 

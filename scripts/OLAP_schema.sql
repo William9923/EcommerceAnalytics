@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS staging.fct_order_items;
+DROP TABLE IF EXISTS staging.dim_feedback;
 DROP TABLE IF EXISTS staging.dim_user;
 DROP TABLE IF EXISTS staging.dim_product;
 DROP TABLE IF EXISTS staging.dim_seller;
@@ -62,6 +63,18 @@ CREATE TABLE staging.dim_time (
   "minute" smallint,
   "daytime" varchar,
   "daynight" varchar
+);
+
+CREATE TABLE staging.dim_feedback (
+  "feedback_key" serial PRIMARY KEY,
+  "feedback_id" varchar,
+  "order_id" varchar,
+  "feedback_score" decimal,
+  "feedback_form_sent_date" integer,
+  "feedback_form_sent_time" smallint,
+  "feedback_answer_date" integer,
+  "feedback_answer_time" smallint,
+  "is_current_version" boolean
 );
 
 CREATE TABLE staging.fct_order_items (
@@ -132,3 +145,11 @@ ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("delivered_time") REFERENCE
 ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("estimated_time_delivery") REFERENCES staging.dim_time ("time_id");
 
 ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("pickup_limit_time") REFERENCES staging.dim_time ("time_id");
+
+ALTER TABLE staging.dim_feedback ADD FOREIGN KEY ("feedback_form_sent_date") REFERENCES staging.dim_date ("date_id");
+
+ALTER TABLE staging.dim_feedback ADD FOREIGN KEY ("feedback_form_sent_time") REFERENCES staging.dim_time ("time_id");
+
+ALTER TABLE staging.dim_feedback ADD FOREIGN KEY ("feedback_answer_date") REFERENCES staging.dim_date ("date_id");
+
+ALTER TABLE staging.dim_feedback ADD FOREIGN KEY ("feedback_answer_time") REFERENCES staging.dim_time ("time_id");

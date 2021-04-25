@@ -101,8 +101,10 @@ insert into staging.fct_order_items
 		inner join (select dim.user_key, dim.user_name from staging.dim_user dim where dim.is_current_version = true) u on o.user_name = u.user_name 
 		inner join (select dp.product_key , dp.product_id from staging.dim_product dp where dp.is_current_version = true) p on oi.product_id = p.product_id
 		inner join (select ds.seller_key , ds.seller_id from staging.dim_seller ds where ds.is_current_version = true) s on oi.seller_id = s.seller_id
+		inner join (select df.feedback_key, df.feedback_id from staging.dim_feedback df)
 		left outer join stg_snapshot_user on o.user_name = stg_snapshot_user.user_name
 		left outer join stg_snapshot_spending on o.user_name = stg_snapshot_spending.user_name
 		left outer join live.payment pay on o.order_id = pay.order_id
+		
 	group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,34,35
 );
