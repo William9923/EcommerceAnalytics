@@ -83,6 +83,7 @@ CREATE TABLE staging.fct_order_items (
   "user_key" integer,
   "product_key" integer,
   "seller_key" integer,
+  "feedback_key" integer,
   "order_date" integer,
   "order_time" smallint,
   "order_approved_date" integer,
@@ -121,6 +122,8 @@ ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("user_key") REFERENCES stag
 ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("product_key") REFERENCES staging.dim_product ("product_key");
 
 ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("seller_key") REFERENCES staging.dim_seller ("seller_key");
+
+ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("feedback_key") REFERENCES staging.dim_feedback ("feedback_key");
 
 ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("order_date") REFERENCES staging.dim_date ("date_id");
 

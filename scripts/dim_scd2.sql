@@ -156,8 +156,8 @@ with deduplicate as (
 	select 
 		distinct *,
 		rank() over (
-			partition by feedback_id 
-			ORDER BY order_id DESC, feedback_answer_date desc, feedback_form_sent_date DESC , feedback_score desc
+			partition by order_id 
+			ORDER BY feedback_answer_date desc, feedback_form_sent_date DESC , feedback_score desc
 		) as rank
 	from 
 		live.feedback f
@@ -186,9 +186,8 @@ insert into staging.dim_feedback (
 		TO_CHAR(d.feedback_answer_date , 'hh24mi')::INT as feedback_answer_time,
 		true as is_current_version
 	from deduplicate d join (select * from staging.dim_feedback where is_current_version = TRUE) stg 
-  on d.feedback_id = stg.feedback_id
+  on d.order_id = stg.order_id
   where (
- 		stg.order_id <> d.order_id OR
 		 stg.feedback_score <> d.feedback_score OR
 		 stg.feedback_form_sent_date <> TO_CHAR(d.feedback_form_sent_date , 'yyyymmdd')::INT OR
 		 stg.feedback_form_sent_time <> TO_CHAR(d.feedback_form_sent_date , 'hh24mi')::INT OR
@@ -202,8 +201,8 @@ with deduplicate as (
 	select 
 		distinct *,
 		rank() over (
-			partition by feedback_id 
-			ORDER BY order_id DESC, feedback_answer_date desc, feedback_form_sent_date DESC , feedback_score desc
+			partition by order_id 
+			ORDER BY feedback_answer_date desc, feedback_form_sent_date DESC , feedback_score desc
 		) as rank
 	from 
 		live.feedback f
@@ -216,10 +215,9 @@ set is_current_version = false
 where staging.dim_feedback.feedback_key in (
 	select stg.feedback_key 
 	from staging.dim_feedback stg inner join deduplicate d
-	on d.feedback_id = stg.feedback_id
+	on d.order_id = stg.order_id
 	where (
- 		stg.order_id <> d.order_id OR
-		 stg.feedback_score <> d.feedback_score OR
+ 		stg.feedback_score <> d.feedback_score OR
 		 stg.feedback_form_sent_date <> TO_CHAR(d.feedback_form_sent_date , 'yyyymmdd')::INT OR
 		 stg.feedback_form_sent_time <> TO_CHAR(d.feedback_form_sent_date , 'hh24mi')::INT OR
 		 stg.feedback_answer_date <> TO_CHAR(d.feedback_answer_date , 'yyyymmdd')::INT OR

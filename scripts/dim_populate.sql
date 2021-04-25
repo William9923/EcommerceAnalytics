@@ -144,8 +144,8 @@ with deduplicate as (
 	select 
 		distinct *,
 		rank() over (
-			partition by feedback_id 
-			ORDER BY order_id DESC, feedback_answer_date desc, feedback_form_sent_date DESC , feedback_score desc
+			partition by order_id 
+			ORDER BY feedback_answer_date desc, feedback_form_sent_date DESC , feedback_score desc
 		) as rank
 	from 
 		live.feedback f
