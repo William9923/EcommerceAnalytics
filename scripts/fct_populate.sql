@@ -17,6 +17,20 @@ with stg_snapshot_user as (
 	on o.order_id = oi.order_id 
 	where o.order_status not in ('canceled', 'unavailable') or o.order_status isnull 
 	group by o.user_name 
+), deduplicate_order as (
+	select feedback_id, order_id, feedback_score, feedback_form_sent_date, feedback_answer_date 
+	from (
+		select
+		distinct *,
+			rank() over (
+				partition by order_id 
+				ORDER BY feedback_answer_date desc, feedback_form_sent_date DESC
+			) as rank
+		from 
+			live.feedback f
+		order by rank desc
+	) dedup 
+	where dedup.rank = 1
 )
 insert into staging.fct_order_items 
 (
@@ -99,11 +113,12 @@ insert into staging.fct_order_items
         	else stg_snapshot_spending.total_spending
     	end
 	from live.order_item oi
-		inner join live.order o on oi.order_id = o.order_id 
-		inner join (select dim.user_key, dim.user_name from staging.dim_user dim where dim.is_current_version = true) u on o.user_name = u.user_name 
-		inner join (select dp.product_key , dp.product_id from staging.dim_product dp where dp.is_current_version = true) p on oi.product_id = p.product_id
-		inner join (select ds.seller_key , ds.seller_id from staging.dim_seller ds where ds.is_current_version = true) s on oi.seller_id = s.seller_id
-		inner join (select df.feedback_key, df.order_id from staging.dim_feedback df where df.is_current_version = true) f on oi.order_id = f.order_id
+		left outer join live.order o on oi.order_id = o.order_id 
+		left outer join (select dim.user_key, dim.user_name from staging.dim_user dim where dim.is_current_version = true) u on o.user_name = u.user_name 
+		left outer join (select dp.product_key , dp.product_id from staging.dim_product dp where dp.is_current_version = true) p on oi.product_id = p.product_id
+		left outer join (select ds.seller_key , ds.seller_id from staging.dim_seller ds where ds.is_current_version = true) s on oi.seller_id = s.seller_id
+		left outer join deduplicate_order on oi.order_id = deduplicate_order.order_id
+		left outer join (select df.feedback_key, df.feedback_id from staging.dim_feedback df where df.is_current_version = true) f on deduplicate_order.feedback_id = f.feedback_id
 		left outer join stg_snapshot_user on o.user_name = stg_snapshot_user.user_name
 		left outer join stg_snapshot_spending on o.user_name = stg_snapshot_spending.user_name
 		left outer join live.payment pay on o.order_id = pay.order_id

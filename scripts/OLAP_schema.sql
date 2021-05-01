@@ -68,7 +68,6 @@ CREATE TABLE staging.dim_time (
 CREATE TABLE staging.dim_feedback (
   "feedback_key" serial PRIMARY KEY,
   "feedback_id" varchar,
-  "order_id" varchar,
   "feedback_score" decimal,
   "feedback_form_sent_date" integer,
   "feedback_form_sent_time" smallint,
