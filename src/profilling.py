@@ -2,7 +2,6 @@ import sys
 import numpy as np
 import scipy as sp
 import pandas as pd
-# import matplotlib.pyplot as plt
 
 import psycopg2
 import pandas as pd
@@ -12,17 +11,27 @@ from tqdm import tqdm
 
 # Profiling
 import sweetviz as sv
+from dataprep.eda import create_report
+
+# Utilities
+from util import load_config
 
 # Global configuration
-DBNAME = "ecommerce"
-HOSTNAME = "localhost"
-USER = "postgres"
-PASS = "9923"
+config = load_config("../config.json")
+DBNAME = config.get("DBNAME")
+HOSTNAME = config.get("HOSTNAME")
+USER = config.get("USER")
+PASS = config.get("PASS")
+SCHEMA = config.get("SCHEMA")
 
-
+# Reporting utilities
 def sweetviz_profilling(df, filename):
     advert_report = sv.analyze(df)
     advert_report.show_html(filename + ".html")
+
+def dataprep_profilling(df, title, filename, path):
+    report = create_report(df, title=title)
+    report.save(filename=filename, to=path)
 
 
 if __name__ == '__main__':
@@ -33,7 +42,7 @@ if __name__ == '__main__':
     # Connect to PostgreSQL server
     conn = alchemyEngine.connect()
 
-    schema = "staging"
+    schema = SCHEMA
 
     date = pd.read_sql_table("dim_date", conn, schema=schema)
     time = pd.read_sql_table("dim_time", conn, schema=schema)
@@ -44,14 +53,18 @@ if __name__ == '__main__':
     fct_order_item = pd.read_sql_table("fct_order_items", conn, schema=schema)
 
     dataset = [date, time, user, product, seller, feedback, fct_order_item]
-    filenames = ["DateDimension", "TimeDimension", "ProductDimension",
+    filenames = ["DateDimension", "TimeDimension", "UserDimension", "ProductDimension",
                  "SellerDimension", "FeedbackDimension", "OrderFact"]
 
     folder = "../reports/"
+    
+    # Profiling
+    dataprep_profilling(user, "UserDimension", "User" + "_prep", folder)
+    dataprep_profilling(product, "ProductDimension", "Product" + "_prep", folder)
+    dataprep_profilling(seller, "SellerDimension", "Seller" + "_prep", folder)
+    dataprep_profilling(feedback, "FeedbackDimension" , "Feedback" + "_prep", folder)
 
-    for filename, data in tqdm(zip(filenames, dataset)):
-        sweetviz_profilling(data, folder + filename + "_sp")
-
+    sweetviz_profilling(fct_order_item, folder + "OrderFact" + "_sf")
     conn.close()
 
     alchemyEngine.dispose()
