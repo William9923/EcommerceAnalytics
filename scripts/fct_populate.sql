@@ -17,6 +17,7 @@ with stg_snapshot_user as (
 	on o.order_id = oi.order_id 
 	where o.order_status not in ('canceled', 'unavailable') or o.order_status isnull 
 	group by o.user_name 
+	order by o.user_name
 ), deduplicate_order as (
 	select feedback_id, order_id, feedback_score, feedback_form_sent_date, feedback_answer_date 
 	from (
