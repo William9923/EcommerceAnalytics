@@ -8,16 +8,14 @@ with stg_snapshot_user as (
 		count(user_name) as num_order 
 	from live."user"
 	group by user_name
-	order by user_name 
 ), stg_snapshot_spending as (
 	select distinct  
 		o.user_name ,
 		(sum(oi.price) + sum(oi.shipping_cost)) as total_spending
-	from live."order" o left join live.order_item oi 
+	from live."order" o left outer join live.order_item oi 
 	on o.order_id = oi.order_id 
-	where o.order_status not in ('canceled', 'unavailable') or o.order_status isnull 
+	where o.order_status is not null and o.order_status not in ('canceled', 'unavailable') 
 	group by o.user_name 
-	order by o.user_name
 ), deduplicate_order as (
 	select feedback_id, order_id, feedback_score, feedback_form_sent_date, feedback_answer_date 
 	from (
@@ -110,7 +108,7 @@ insert into staging.fct_order_items
 		SUM(case when payment_type='not_defined' then payment_value else 0 end) as total_payment_unknown,
 		stg_snapshot_user.num_order,
 		case
-        	when stg_snapshot_spending.total_spending = NULL THEN 0
+        	when stg_snapshot_spending.total_spending is null THEN 0
         	else stg_snapshot_spending.total_spending
     	end
 	from live.order_item oi
