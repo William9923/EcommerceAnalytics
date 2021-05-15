@@ -13,7 +13,10 @@ insert into staging.dim_product (
 ) 
 (select 
 	live.product.product_id,
-	live.product.product_category,
+	CASE 
+         live.product.product_category is not null then live.product.product_category
+         else 'OTHER'
+    END as product_category,
 	live.product.product_name_length,
 	live.product.product_description_length,
 	live.product.product_photos_qty, 

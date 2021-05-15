@@ -74,7 +74,18 @@ insert into staging.dim_product (
     is_current_version
 ) 
 (select 
-	*,
+	product_id,
+    CASE 
+         product_category is not null then product_category
+         else 'OTHER'
+    END as product_category,
+    product_name_length,
+    product_description_length,
+    product_photos_qty, 
+    product_weight_g, 
+    product_length_cm, 
+    product_height_cm, 
+    product_width_cm, 
 	true as is_current_version 
 	from live.product
 	where product_id not in (select product_id from staging.dim_product));
