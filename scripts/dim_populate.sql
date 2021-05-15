@@ -19,7 +19,7 @@ SELECT TO_CHAR(datum, 'yyyymmdd')::INT AS date_id,
            ELSE FALSE
            END AS isWeekend
 FROM (SELECT '2016-01-01'::DATE + SEQUENCE.DAY AS datum
-      FROM GENERATE_SERIES(0, 1095) AS SEQUENCE (DAY)
+      FROM GENERATE_SERIES(0, 2190) AS SEQUENCE (DAY)
       GROUP BY SEQUENCE.DAY) DQ
 ORDER BY 1;
 
@@ -110,9 +110,9 @@ insert into staging.dim_user (
 (
 	select
 		user_name ,
-		customer_zip_code, 
-		customer_state, 
+		customer_zip_code,  
 		customer_city,
+		customer_state,
 		true as is_current_version
 	from deduplicate
 	where user_name not in (select user_name from staging.dim_user)
