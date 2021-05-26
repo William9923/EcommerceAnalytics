@@ -36,13 +36,11 @@ select to_char(minute, 'hh24mi')::INT AS time_id,
 	-- Minute of the day (0 - 1439)
 	extract(hour from minute)*60 + extract(minute from minute) as minute,
 	-- Names of day periods
-	case when to_char(minute, 'hh24:mi') between '06:00' and '08:29'
+	case when to_char(minute, 'hh24:mi') between '05:00' and '10:00'
 		then 'Morning'
-	     when to_char(minute, 'hh24:mi') between '08:30' and '11:59'
-		then 'AM'
-	     when to_char(minute, 'hh24:mi') between '12:00' and '17:59'
-		then 'PM'
-	     when to_char(minute, 'hh24:mi') between '18:00' and '22:29'
+	     when to_char(minute, 'hh24:mi') between '10:00' and '15:00'
+		then 'Afternoon'
+	     when to_char(minute, 'hh24:mi') between '15:00' and '22:00'
 		then 'Evening'
 	     else 'Night'
 	end as daytime,
