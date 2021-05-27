@@ -47,12 +47,13 @@ Progress report akan dilakukan setiap 2 minggu, dengan rincian sebagai berikut :
 - [x] Menyusun business question (60%)
 - [x] Eksplorasi ecommerce terkait business question
 
-* Week 13 - 14
-- [ ] Menyusun business question (100%)
-- [ ] Basic EDA for business question
+* Week 13 - 14 ( + 1 week holiday)
+- [x] Menyusun business question (100%)
+- [x] Basic EDA for business question
 - [ ] Complete Background for business question
 - [ ] Expectation / In General for business question
-- [ ] Answer + Visualization + explanation for business qurstion
+- [x] Answer + Visualization + explanation for business qurstion
+
 
 Lebih lengkapnya dapat mengarah ke link [wiki](https://github.com/William9923/future-data-ecommerce/wiki) sebagai berikut
 
