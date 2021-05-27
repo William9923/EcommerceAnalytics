@@ -50,10 +50,15 @@ Progress report akan dilakukan setiap 2 minggu, dengan rincian sebagai berikut :
 * Week 13 - 14 ( + 1 week holiday)
 - [x] Menyusun business question (100%)
 - [x] Basic EDA for business question
-- [ ] Complete Background for business question
+- [x] Complete Background for business question
 - [ ] Expectation / In General for business question
 - [x] Answer + Visualization + explanation for business qurstion
 
+* Week 15 - 16
+- [ ] Finalize Business Question Analysis
+- [ ] Create reporting docs
+- [ ] Setup for supervised learning (machine learning opportunities)
+- [ ] Define metric for supervised learning
 
 Lebih lengkapnya dapat mengarah ke link [wiki](https://github.com/William9923/future-data-ecommerce/wiki) sebagai berikut
 
