@@ -1,7 +1,7 @@
 -- Make sure to fix the path file first, then exec the script
 
 COPY live.user (user_name, customer_zip_code, customer_city, customer_state)
-FROM 'C:\Users\William\Documents\DataScience\blibli\e-commerce-datsci-proj\data\raw\user_dataset.csv' 
+FROM 'C:\Users\William\Documents\DataScience\blibli\e-commerce-datsci-proj\data\processed\user_dataset_cleaned.csv' 
 DELIMITER ',' 
 CSV HEADER;
 
@@ -11,7 +11,7 @@ DELIMITER ','
 CSV HEADER;
 
 COPY live.seller (seller_id, seller_zip_code, seller_city, seller_state)
-FROM 'C:\Users\William\Documents\DataScience\blibli\e-commerce-datsci-proj\data\raw\seller_dataset.csv' 
+FROM 'C:\Users\William\Documents\DataScience\blibli\e-commerce-datsci-proj\data\processed\seller_dataset_cleaned.csv' 
 DELIMITER ',' 
 CSV HEADER;
 
@@ -34,6 +34,7 @@ COPY live.order_item (order_id, order_item_id , product_id, seller_id, pickup_li
 FROM 'C:\Users\William\Documents\DataScience\blibli\e-commerce-datsci-proj\data\raw\order_item_dataset.csv' 
 DELIMITER ',' 
 CSV HEADER;
+
 
 
 

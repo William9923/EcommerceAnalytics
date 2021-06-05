@@ -14,7 +14,7 @@ insert into staging.dim_product (
 (select 
 	live.product.product_id,
 	CASE 
-         live.product.product_category is not null then live.product.product_category
+         when live.product.product_category is not null then live.product.product_category
          else 'OTHER'
     END as product_category,
 	live.product.product_name_length,
@@ -70,25 +70,25 @@ with deduplicate as (
 			live.user u
 		) dedup 
 	where rank = 1
+), geolocation as (
+	select geo_id, city
+	from dim_geo
 )
 insert into staging.dim_user (
   user_name,
-  customer_zip_code,
-  customer_city,
-  customer_state,
+  customer_geo_id,
   is_current_version
 )
 (
 	select 
 	 s.user_name ,
-	 s.customer_zip_code ,
-	 s.customer_state ,
-	 s.customer_city ,
-    true is_current_version 
+	 geolocation.geo_id,
+     true is_current_version 
   from deduplicate s join (select * from staging.dim_user where is_current_version = TRUE) stg 
   on s.user_name = stg.user_name
+  left join geolocation on s.customer_city = geolocation.city
   where (
- 		stg.customer_zip_code <> s.customer_zip_code 
+ 		stg.customer_geo_id <> geolocation.geo_id 
   )
 );
 
@@ -105,6 +105,9 @@ with deduplicate as (
 			live.user u
 		) dedup 
 	where rank = 1
+), geolocation as (
+	select geo_id, city
+	from dim_geo
 )
 update staging.dim_user 
 set is_current_version = false 
@@ -112,33 +115,37 @@ where staging.dim_user.user_key in (
 	select stg.user_key 
 	from staging.dim_user stg inner join deduplicate s
 	on s.user_name = stg.user_name
+	left join geolocation on s.customer_city = geolocation.city
 	where (
-			stg.customer_zip_code <> s.customer_zip_code 
+			stg.customer_geo_id <> geolocation.geo_id 
 	)
 );
 
 -- Seller SCD Snapshot
+with geolocation as (
+	select geo_id, city
+	from dim_geo
+)
 insert into staging.dim_seller (
 	seller_id ,
-	seller_zip_code ,
-	seller_city ,
-	seller_state ,
+	seller_geo_id ,
 	is_current_version 
 ) 
 (select 
-	 s.seller_id ,
-	 s.seller_zip_code ,
-	 s.seller_city ,
-	 s.seller_state ,
+	s.seller_id,
+	geolocation.geo_id,
     true is_current_version 
   from live.seller s join (select * from staging.dim_seller where is_current_version = TRUE) stg on s.seller_id = stg.seller_id
+  left join geolocation on s.seller_city = geolocation.city
   where (
- 		stg.seller_state <> s.seller_state OR
- 		stg.seller_zip_code <> s.seller_zip_code OR
- 		stg.seller_city <> s.seller_city 
+ 		stg.seller_geo_id <> geolocation.geo_id 
   )
 );
 
+with geolocation as (
+	select geo_id, city
+	from dim_geo
+)
 -- update the changed dimension
 update staging.dim_seller 
 set is_current_version = false 
@@ -146,11 +153,10 @@ where staging.dim_seller.seller_key in (
 	select stg.seller_key 
 	from staging.dim_seller stg inner join live.seller s
 	on stg.seller_id = s.seller_id 
+	left join geolocation on s.seller_city = geolocation.city
 	where (
- 		stg.seller_state <> s.seller_state OR
- 		stg.seller_zip_code <> s.seller_zip_code OR
- 		stg.seller_city <> s.seller_city 
-  )
+			stg.seller_geo_id <> geolocation.geo_id 
+	)
 );
 
 -- Feedback dimension SCD

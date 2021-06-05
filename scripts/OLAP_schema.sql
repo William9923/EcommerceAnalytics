@@ -5,13 +5,12 @@ DROP TABLE IF EXISTS staging.dim_product;
 DROP TABLE IF EXISTS staging.dim_seller;
 DROP TABLE IF EXISTS staging.dim_date;
 DROP TABLE IF EXISTS staging.dim_time;
+DROP TABLE IF EXISTS staging.dim_geo;
 
 CREATE TABLE staging.dim_user (
   "user_key" serial PRIMARY KEY,
   "user_name" varchar,
-  "customer_zip_code" varchar,
-  "customer_city" varchar,
-  "customer_state" varchar,
+  "customer_geo_id" integer,
   "is_current_version" boolean
 );
 
@@ -32,9 +31,7 @@ CREATE TABLE staging.dim_product (
 CREATE TABLE staging.dim_seller (
   "seller_key" serial PRIMARY KEY, 
   "seller_id" varchar,
-  "seller_zip_code" int,
-  "seller_city" varchar,
-  "seller_state" varchar,
+  "seller_geo_id" integer,
   "is_current_version" boolean
 );
 
@@ -56,15 +53,6 @@ CREATE TABLE staging.dim_date (
   "isWeekend" boolean
 );
 
-CREATE TABLE staging.dim_time (
-  "time_id" smallint PRIMARY KEY,
-  "hour" smallint,
-  "quarter_hour" varchar,
-  "minute" smallint,
-  "daytime" varchar,
-  "daynight" varchar
-);
-
 CREATE TABLE staging.dim_feedback (
   "feedback_key" serial PRIMARY KEY,
   "feedback_id" varchar,
@@ -74,6 +62,23 @@ CREATE TABLE staging.dim_feedback (
   "feedback_answer_date" integer,
   "feedback_answer_time" smallint,
   "is_current_version" boolean
+);
+
+CREATE TABLE staging.dim_time (
+  "time_id" smallint PRIMARY KEY,
+  "hour" smallint,
+  "quarter_hour" varchar,
+  "minute" smallint,
+  "daytime" varchar,
+  "daynight" varchar
+);
+
+CREATE TABLE staging.dim_geo (
+  "geo_id" serial PRIMARY KEY,
+  "city" varchar,
+  "state" varchar,
+  "long" decimal,
+  "lat" decimal
 );
 
 CREATE TABLE staging.fct_order_items (
@@ -116,6 +121,7 @@ CREATE TABLE staging.fct_order_items (
   PRIMARY KEY("order_id", "order_item_id")
 );
 
+-- Time trait relation
 ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("user_key") REFERENCES staging.dim_user ("user_key");
 
 ALTER TABLE staging.fct_order_items ADD FOREIGN KEY ("product_key") REFERENCES staging.dim_product ("product_key");
@@ -155,3 +161,10 @@ ALTER TABLE staging.dim_feedback ADD FOREIGN KEY ("feedback_form_sent_time") REF
 ALTER TABLE staging.dim_feedback ADD FOREIGN KEY ("feedback_answer_date") REFERENCES staging.dim_date ("date_id");
 
 ALTER TABLE staging.dim_feedback ADD FOREIGN KEY ("feedback_answer_time") REFERENCES staging.dim_time ("time_id");
+
+ALTER TABLE staging.dim_feedback ADD FOREIGN KEY ("feedback_answer_time") REFERENCES staging.dim_time ("time_id");
+
+-- Geolocation trait relation
+ALTER TABLE staging.dim_seller ADD FOREIGN KEY ("seller_geo_id") REFERENCES staging.dim_geo ("geo_id");
+
+ALTER TABLE staging.dim_user ADD FOREIGN KEY ("customer_geo_id") REFERENCES staging.dim_geo ("geo_id");

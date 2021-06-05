@@ -1,3 +1,9 @@
+-- Load Geolocation Data
+COPY staging.dim_geo (city, state, long, lat)
+FROM 'C:\Users\William\Documents\DataScience\blibli\e-commerce-datsci-proj\data\processed\IDN_geo_cleaned.csv' 
+DELIMITER ',' 
+CSV HEADER;
+
 -- Upsert Date dimension
 INSERT INTO staging.dim_date
 SELECT TO_CHAR(datum, 'yyyymmdd')::INT AS date_id,
@@ -36,13 +42,13 @@ select to_char(minute, 'hh24mi')::INT AS time_id,
 	-- Minute of the day (0 - 1439)
 	extract(hour from minute)*60 + extract(minute from minute) as minute,
 	-- Names of day periods
-	case when to_char(minute, 'hh24:mi') between '05:00' and '10:00'
+	case when to_char(minute, 'hh24:mi') between '00:00' and '06:00'
+		then 'Dawn'
+	     when to_char(minute, 'hh24:mi') between '06:00' and '11:00'
 		then 'Morning'
-	     when to_char(minute, 'hh24:mi') between '10:00' and '15:00'
+	     when to_char(minute, 'hh24:mi') between '11:00' and '18:00'
 		then 'Afternoon'
-	     when to_char(minute, 'hh24:mi') between '15:00' and '22:00'
-		then 'Evening'
-	     else 'Night'
+	     else 'Evening'
 	end as daytime,
 	-- Indicator of day or night
 	case when to_char(minute, 'hh24:mi') between '07:00' and '19:59' then 'Day'
@@ -74,7 +80,7 @@ insert into staging.dim_product (
 (select 
 	product_id,
     CASE 
-         product_category is not null then product_category
+         when product_category is not null then product_category
          else 'OTHER'
     END as product_category,
     product_name_length,
@@ -108,22 +114,22 @@ with deduplicate as (
 			live.user u
 		) dedup 
 	where rank = 1
+), geolocation as (
+	select geo_id, city
+	from dim_geo
 )
 insert into staging.dim_user (
   user_name,
-  customer_zip_code,
-  customer_city,
-  customer_state,
+  customer_geo_id,
   is_current_version
 )
 (
 	select
 		user_name ,
-		customer_zip_code,  
-		customer_city,
-		customer_state,
+		geolocation.geo_id,
 		true as is_current_version
-	from deduplicate
+	from deduplicate d
+	left join geolocation on d.customer_city = geolocation.city
 	where user_name not in (select user_name from staging.dim_user)
 );
 
@@ -133,17 +139,21 @@ insert into staging.dim_user (
 -- 1. insert new data
 -- 2. insert new change in live database as change in data staging, make it into current version
 -- 3. update the second latest version (still in current version flag) into non-current version
+with geolocation as (
+	select geo_id, city
+	from dim_geo
+)
 insert into staging.dim_seller (
 	seller_id ,
-	seller_zip_code ,
-	seller_city ,
-	seller_state ,
+	seller_geo_id ,
 	is_current_version 
 ) 
 (select 
-	*,
+	s.seller_id,
+	geolocation.geo_id,
 	true as is_current_version
-	from live.seller
+	from live.seller s
+	left join geolocation on s.seller_city = geolocation.city
 	where seller_id not in (select seller_id from staging.dim_seller)
 );
 
