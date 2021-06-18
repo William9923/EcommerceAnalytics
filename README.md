@@ -55,10 +55,10 @@ Progress report akan dilakukan setiap 2 minggu, dengan rincian sebagai berikut :
 - [x] Answer + Visualization + explanation for business qurstion
 
 * Week 15 - 16
-- [ ] Finalize Business Question Analysis
-- [ ] Create reporting docs
-- [ ] Setup for supervised learning (machine learning opportunities)
-- [ ] Define metric for supervised learning
+- [x] Finalize Business Question Analysis
+- [x] Create reporting docs -> only dashboard, full report not done
+- [x] Setup for supervised learning (machine learning opportunities)
+- [x] Define metric for supervised learning
 
 Lebih lengkapnya dapat mengarah ke link [wiki](https://github.com/William9923/future-data-ecommerce/wiki) sebagai berikut
 
