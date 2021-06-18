@@ -94,7 +94,7 @@ insert into staging.dim_product (
 	from live.product
 	where product_id not in (select product_id from staging.dim_product));
 
--- User dimension (SCD I)
+-- User dimension (SCD II)
 -- 3 steps :
 -- 0. create the aggregate for user data
 -- 1. insert new data
