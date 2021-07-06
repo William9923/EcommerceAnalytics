@@ -61,10 +61,10 @@ Progress report akan dilakukan setiap 2 minggu, dengan rincian sebagai berikut :
 - [x] Define metric for supervised learning
 
 * Week 17 - 18
-- [ ] Create baseline for supervised machine learning opportunities
-- [ ] Evaluate baseline 
-- [ ] Feature engineering from original data to create meaningful feature
-- [ ] Reporting for baseline + some f.eng approach on machine learning opportunities
+- [x] Create baseline for supervised machine learning opportunities
+- [x] Evaluate baseline 
+- [x] Feature engineering from original data to create meaningful feature
+- [x] Reporting for baseline + some f.eng approach on machine learning opportunities
 - [ ] Planning for more sophisticated approach on tackling the problems (implementing stacking / bagging)
 
 Lebih lengkapnya dapat mengarah ke link [wiki](https://github.com/William9923/future-data-ecommerce/wiki) sebagai berikut
