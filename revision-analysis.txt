@@ -1,0 +1,36 @@
+Revision List : 
+- Order Trend : 
+Chart 1 :
+Percentage Order Comparison (tolong bikin versi grouped barchart aja buat bandingin.
+Chart 2:
+Bandingin dengan avg / median -> cek apakah berbeda dengan sekarang (karena efek dari peak season), dan karena ga semua bln tanggalny pas 31 -> bisa jadi insight
+Buat distribution, again bisa pake median + add percentage di labelnya.
+Rekomendasi : 
+Suggest waktu juga based from data-nya.
+- Payment Type Analysis : 
+Chart 1 : 
+Distribution of payment type -> jangan pake pie chart -> ubah ke barplot biasa aja
+Distribution of Installment Variety -> Tolong dikasiin stacked bar chart (hue = payment type (sorted)) buat bisa bedain number of installment- nya.
+Chart 2:
+Sort manusianya based from paling gede distribusinya...
+Chart 4:
+Buang ridgeplot
+Chart 5:
+Bisa tolong diganti with versus barchart dari sini :https://www.kaggle.com/subinium/the-hitchhiker-s-guide-to-the-kaggle
+Rekomendasi : 
+- Terkait abandoment rate, kita bisa provide konteks kalo jenis" pembayaran yang ada sekarang cukup minim. Kasi konteks sedikit / cerita terkait abandoment in checkout process, dan kasi tau kenapa more option is better in payment
+- Recency
+Chart 2:
+Interval, xlim tolong biar < 0 ga keliatan
+- Chart terakhir : 
+Coba tambahin top categories of product yang suka dibeli oleh LVHV, HVLV (horizontal barchart ?) -> Kita bisa liat preferensi product categories tiap segment. 
+- Location Analysis :
+Chart 1:
+Ganti dengan heatmap bentuk peta ?
+Chart 2:
+Ganti dengan heatmap bentuk peta ? 
+Buang Chart 4.
+- Chart terakhir: 
+Tambahin distribusi quantile jadi 1-10 (dl 1-5)
+Rekomendasi : 
+- Ada 2 opsi dalam ekspansi e-commerce ini, yang pertama kita bisa ekspan dalam Pulau Jawa (karena lokasi distribusi seller-customer) terbanyak disini, atau kita bisa ekspan ke lokasi lain yang sedang berkembang selain Pulau Jawa, seperti Pulau Sumatera & Kalimantan.
