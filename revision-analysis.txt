@@ -1,36 +1,30 @@
 Revision List : 
-- Order Trend : 
-Chart 1 :
-Percentage Order Comparison (tolong bikin versi grouped barchart aja buat bandingin.
-Chart 2:
-Bandingin dengan avg / median -> cek apakah berbeda dengan sekarang (karena efek dari peak season), dan karena ga semua bln tanggalny pas 31 -> bisa jadi insight
-Buat distribution, again bisa pake median + add percentage di labelnya.
-Rekomendasi : 
-Suggest waktu juga based from data-nya.
 - Payment Type Analysis : 
-Chart 1 : 
-Distribution of payment type -> jangan pake pie chart -> ubah ke barplot biasa aja
-Distribution of Installment Variety -> Tolong dikasiin stacked bar chart (hue = payment type (sorted)) buat bisa bedain number of installment- nya.
-Chart 2:
-Sort manusianya based from paling gede distribusinya...
-Chart 4:
-Buang ridgeplot
-Chart 5:
-Bisa tolong diganti with versus barchart dari sini :https://www.kaggle.com/subinium/the-hitchhiker-s-guide-to-the-kaggle
 Rekomendasi : 
-- Terkait abandoment rate, kita bisa provide konteks kalo jenis" pembayaran yang ada sekarang cukup minim. Kasi konteks sedikit / cerita terkait abandoment in checkout process, dan kasi tau kenapa more option is better in payment
-- Recency
-Chart 2:
-Interval, xlim tolong biar < 0 ga keliatan
-- Chart terakhir : 
-Coba tambahin top categories of product yang suka dibeli oleh LVHV, HVLV (horizontal barchart ?) -> Kita bisa liat preferensi product categories tiap segment. 
+- Terkait abandoment rate, kita bisa provide konteks kalo jenis" pembayaran yang ada sekarang cukup minim. Kasi konteks sedikit / cerita terkait abandoment in checkout process, dan kasi tau kenapa more option is better in payment -> Todo malem
 - Location Analysis :
-Chart 1:
-Ganti dengan heatmap bentuk peta ?
-Chart 2:
-Ganti dengan heatmap bentuk peta ? 
-Buang Chart 4.
-- Chart terakhir: 
-Tambahin distribusi quantile jadi 1-10 (dl 1-5)
-Rekomendasi : 
+- Rekomendasi (Tambahan) : 
 - Ada 2 opsi dalam ekspansi e-commerce ini, yang pertama kita bisa ekspan dalam Pulau Jawa (karena lokasi distribusi seller-customer) terbanyak disini, atau kita bisa ekspan ke lokasi lain yang sedang berkembang selain Pulau Jawa, seperti Pulau Sumatera & Kalimantan.
+Disini, kita bisa tambahin product yang paling disukai dari state" yang lg rame, which bisa bantu indicating apakah state" tertentu ada preferensi ga gitu?
+---
+Referensi : 
+- Embed Html Link to medium : https://jennifer-banks8585.medium.com/how-to-embed-interactive-plotly-visualizations-on-medium-blogs-710209f93bd
+- Buat API (optional) : https://jennifer-banks8585.medium.com/creating-a-data-science-api-as-a-part-of-a-cross-functional-team-b99592efc26d
+----
+Todo (Part 2 & 3):
+1. Research about recommender system for unsupervised.
+Basic Planning : 
+Jadi, mau bikin suatu recommender based on spending behavior seseorang.
+Clustering based from spending behavior and volume (purchase) behavior gitu (ke -> product category mana yang sesuai), pake clustering. Harapannya, recomendation bisa lebih tepat sasaran. -> Kalo bisa pake location jg, cuman aga weird aja kalo ecommerce gitu, mungkin lbh ke +seller mana yg rame jualan di tempat dia ? + rating>
+---
+2. Analysis part 5 perlu kalimat + simpulan insight + recommendation (recommendationnya ngarah ke proyek kita)
+3. Supervised learning perlu tuning + finishing model.
+---
+
+Target : 21/07/2021 : Analisis done (sisa part 5 yang bakal direview ci gaby), Supervised done jg (uda tuning + finalisasiin notebook akhir), sudah kelar research terkait recommender system for unsupervised jg. Ask juga gimana bisa tuning unsupervised.
+
+Target : 04/08/2021 : Uda kelar medium buat minimal tahapan data engineer + data analysis (min 2/5), uda kelar unsupervised + tuning done jg, visualisasi beres.
+
+Target : 18/08/2021 : Finalisasi + ppt done, medium harus uda kelar semua.
+
+----
