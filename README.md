@@ -63,6 +63,13 @@ Progress report akan dilakukan setiap 2 minggu, dengan rincian sebagai berikut :
 - [x] Reporting for baseline + some f.eng approach on machine learning opportunities
 - [ ] Refactor code for training model
 
+* Week 21 - 22 (7 July 2021 - 21 July 2021)
+- [x] Done research for unsupervised learning
+- [x] Done setup + prepare for unsupervised learning (data constructed, still deep diving about unsupervised learning)
+- [x] Done revision for business problem visualization (from ci gaby)
+- [x] Done revision for machine learning opportunities (from ko Johan)
+- [ ] Refactoring notebook structure for machine learning opportunities
+
 Lebih lengkapnya dapat mengarah ke link [wiki](https://github.com/William9923/future-data-ecommerce/wiki) sebagai berikut
 
 #### Documentation & Deliveribles -> see [drive](https://drive.google.com/drive/folders/1EhdzxzMnBAIJyZU9aXpXrXs58gSnTMKU?usp=sharing) 
@@ -85,14 +92,11 @@ Proyek ini digunakan untuk menjawab pertanyaan - pertanyaan bisnis serta menghas
 * Pandas, jupyter
 
 ### Project Structure
-```
 root
 ├───models           <- Trained and serialized models, model predictions, or model summaries
 ├───notebooks        <- Jupyter notebooks.
 ├───scripts          <- Source code for use in this project.
-```
 ## Usage
 
 ### Author
 * [William](https://william9923.github.io/)
-
