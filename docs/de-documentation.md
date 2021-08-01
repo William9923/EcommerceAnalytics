@@ -38,8 +38,8 @@ This documentation provide the process & result of pipeline that I create & use 
 * [Prerequisites](#prerequisites)
 * [Architecture Diagram](#architecture)
 * [Database Diagram](#database)
-* [Process](#process)
 * [Warehouse Diagram](#data-warehouse)
+* [ETL](#etl-pipeline)
 * [References](#references)
 
 ## Prerequisites
@@ -143,7 +143,9 @@ In **star schema** design, a **measure** is a fact table column that stores valu
     <span color="gray">Data Warehouse Final Schema (End Result)</span>
 </div>
 
-## ETL Pipeline (Extract → Transform → Load)
+## ETL Pipeline
+**(Extract → Transform → Load)**
+
 To load data from our OLTP (Database) into OLAP (Data Warehouse) we need a pipeline for ETL. To do that, we need to create an ETL process for each dimension and fact table.
 
 ![](../figure/etl-pipeline.png)
