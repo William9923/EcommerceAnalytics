@@ -1,9 +1,9 @@
 --- Prerequisted
-1. Jelasin cara install PostgresSQL + Python
-2. Jelasin cara export data
+1. Jelasin cara install PostgresSQL + Python -> part II
+2. Jelasin cara export data --> part II 
 --- Database 
-3. Jelasin data structure
-4. Jelasin export / import data ? 
+3. Jelasin data structure ->kek int opo, varchar opo gitu" lakuin
+4. Jelasin export / import data ? -> done
 --- Data Warehouse -> Gambar dibenerin
 5. Jelasin surrogate key 
 6. Jelasin surrogate key di dimension table yang kehubung dengan fact table
@@ -18,3 +18,9 @@
 Still confused (might not we add, but this will be asked later...):
 - Gimana cara ngelompokin dimensi based on granularity
 - Gimana cara fact table dapet datanya (based on granularity)
+
+Conceptual..
+
+Implementation..
+
+Done...

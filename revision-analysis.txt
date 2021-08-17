@@ -1,33 +1,22 @@
-Revision List : 
-- Payment Type Analysis : 
-Rekomendasi : 
-- Terkait abandoment rate, kita bisa provide konteks kalo jenis" pembayaran yang ada sekarang cukup minim. Kasi konteks sedikit / cerita terkait abandoment in checkout process, dan kasi tau kenapa more option is better in payment -> Todo malem
-- Location Analysis :
-- Rekomendasi (Tambahan) : 
-- Ada 2 opsi dalam ekspansi e-commerce ini, yang pertama kita bisa ekspan dalam Pulau Jawa (karena lokasi distribusi seller-customer) terbanyak disini, atau kita bisa ekspan ke lokasi lain yang sedang berkembang selain Pulau Jawa, seperti Pulau Sumatera & Kalimantan.
-Disini, kita bisa tambahin product yang paling disukai dari state" yang lg rame, which bisa bantu indicating apakah state" tertentu ada preferensi ga gitu?
----
+Unsupervised Image for medium + ppt : 
+https://towardsdatascience.com/how-to-automatically-segment-customers-using-purchase-data-and-a-few-lines-of-python-36939fb587a4
+
+Revision akhir:
+1. ambil sehari buat vs"an
+map : https://towardsdatascience.com/plot-choropleth-maps-with-shapefiles-using-geopandas-a6bf6ade0a49
+or : pake gif aja
+===
+
+Cool Tools : 
+1. Excalidraw -> To make great visualization
+2. Yellowbrick -> To make ml visualization easier
+3. human learn -> Create RBS easily...
+4. Datapane -> to publish web based in medium... :">
+
 Referensi : 
 - Embed Html Link to medium : https://jennifer-banks8585.medium.com/how-to-embed-interactive-plotly-visualizations-on-medium-blogs-710209f93bd
 - Buat API (optional) : https://jennifer-banks8585.medium.com/creating-a-data-science-api-as-a-part-of-a-cross-functional-team-b99592efc26d
-----
-Todo (Part 2 & 3):
-1. Research about recommender system for unsupervised. -> done
-Basic Planning : 
-Jadi, mau bikin suatu recommender based on spending behavior seseorang.
-Clustering based from spending behavior and volume (purchase) behavior gitu (ke -> product category mana yang sesuai), pake clustering. Harapannya, recomendation bisa lebih tepat sasaran. -> Kalo bisa pake location jg, cuman aga weird aja kalo ecommerce gitu, mungkin lbh ke +seller mana yg rame jualan di tempat dia ? + rating>
----
-2. Analysis part 5 perlu kalimat + simpulan insight + recommendation (recommendationnya ngarah ke proyek kita) -> done
-3. Supervised learning perlu tuning + finishing model. -> tudei done
----
 
-Target : 21/07/2021 : Analisis done (sisa part 5 yang bakal direview ci gaby) -> tbh uda hampir done, Supervised done jg (uda tuning + finalisasiin notebook akhir) -> ini bisa, sudah kelar research terkait recommender system for unsupervised jg. Ask juga gimana bisa tuning unsupervised.
-
-Target : 04/08/2021 : Uda kelar medium buat minimal tahapan data engineer + data analysis (min 2/5), uda kelar unsupervised + tuning done jg, visualisasi beres.
-
-Target : 18/08/2021 : Finalisasi + ppt done, medium harus uda kelar semua.
-
-----
 
 username : William9923
 API key : zlYlgf4erfyxVdQLN5Kc

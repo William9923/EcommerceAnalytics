@@ -86,6 +86,15 @@ Every row in the table called a record, every column is called a field.
 
 After loading the `.csv` dataset into database, we need to **identify the relationship** between data.
 
+**Datatype**
+Type | Description | Storage
+---: | :---: |:--- 
+int | Allows whole numbers between -2,147,483,648 and 2,147,483,647 | 4 bytes
+bool | Zero is considered as false, nonzero values are considered as true. | 1 bytes
+varchar(max) | Variable width character string | 2 bytes + number of chars
+float(n) | Floating precision number data from -1.79E + 308 to 1.79E + 308. | 4 or 8 bytes
+timestamp | Stores a unique number that gets updated every time a row gets created or modified. | -
+
 **Relationship Mapping**
 
 No | Relation | Type | Key
@@ -121,15 +130,23 @@ Before we start, I would like to give an overview about concepts that we will us
 
 **Dimension Table Details:**
 
-No | Dimension | Description | Type (SCD)
+No | Dimension | Description | Type 
 ---: | :---: |:--- | :---
 1 | User Dimension | Provide information about user | **SCD II**
 2 | Seller Dimension | Provide information about seller | **SCD II**
 3 | Product Dimension | Provide information about product | **SCD II**
 4 | Feedback Dimension | Provide information about feedback | **SCD II**
-5 | Date Dimension | Addition dimension for adding context for dates, such as holiday and weekend  | -
-6 | Time Dimension | Addition dimension for adding context for times  | -
-7 | Geo Dimension | Addition dimension for adding context for location, such as lat and long | -
+5 | Date Dimension | Addition dimension for adding context for dates, such as holiday and weekend  | **SCD 0**
+6 | Time Dimension | Addition dimension for adding context for times  | **SCD 0**
+7 | Geo Dimension | Addition dimension for adding context for location, such as lat and long | **SCD 0**
+
+**Fact table Surogate Key Details:**
+No | Dimension | Key 
+---: | :---: |:--- 
+1 | User Dimension | user_key
+2 | Seller Dimension | seller_key
+3 | Product Dimension | product_key
+4 | Feedback Dimension | feedback_key
 
 In **star schema** design, a **measure** is a fact table column that stores values to be summarized. Here, our fact table store 5 different types of measure from **each product from an order** : 
 - Price
