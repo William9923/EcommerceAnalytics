@@ -70,6 +70,24 @@ Progress report akan dilakukan setiap 2 minggu, dengan rincian sebagai berikut :
 - [x] Done revision for machine learning opportunities (from ko Johan)
 - [ ] Refactoring notebook structure for machine learning opportunities
 
+* Week 23 - 24 (21 July 2021 - 4 August 2021)
+- [x] Unsupervised learning (Approach : KMeans)
+- [x] Unsupervised learning (Approach : KMedoids)
+- [x] Creating documentation for Data Engineering
+- [ ] Creating documentation for Data Analysis (2/5)
+
+* Week 25 - 26 (4 August 2021 - 18 August 2021)
+- [x] Unsupervised learning (Approach : Aglomerative)
+- [x] Analyzing segment for each user and determine best result
+- [x] PPT Revision
+- [x] Creating documentation for Data Analysis
+- [x] Refactor notebook for supervised learning and unsupervised learning
+
+* Final Week (18 August - finish)
+- [ ] Creating documentation for Data Science
+- [ ] Final archive for project
+- [ ] Prepare for Exam
+
 Lebih lengkapnya dapat mengarah ke link [wiki](https://github.com/William9923/future-data-ecommerce/wiki) sebagai berikut
 
 #### Documentation & Deliveribles -> see [drive](https://drive.google.com/drive/folders/1EhdzxzMnBAIJyZU9aXpXrXs58gSnTMKU?usp=sharing) 
@@ -92,10 +110,16 @@ Proyek ini digunakan untuk menjawab pertanyaan - pertanyaan bisnis serta menghas
 * Pandas, jupyter
 
 ### Project Structure
+```
 root
-├───models           <- Trained and serialized models, model predictions, or model summaries
-├───notebooks        <- Jupyter notebooks.
+├───bin              <- Trained and serialized models, model predictions, or model summaries
+├───data             <- Raw and processed data
+├───figure           <- Figure used for documentation
+├───notebooks        <- Notebook for experimenting and finalizing results
+├───reports          <- Reports from training model
+├───src              <- Script to train models.
 ├───scripts          <- Source code for use in this project.
+```
 ## Usage
 
 ### Author
